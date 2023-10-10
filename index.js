@@ -28,6 +28,63 @@ app.post(`${baseUrl}/v1/clientes`, async (req, res, next) => {
 
 })
 
+app.get(`${baseUrl}/v1/clientes`, async (req, res, next) => {
+    try {
+        const clientes = await Cliente.find()
+        res.json(clientes)
+    } catch (err) {
+        next(err)
+    }
+})
+
+app.get(`${baseUrl}/v1/clientes/:id`, async (req, res, next) => {
+    try {
+        const id = req.params.id
+
+        const cliente = await Cliente.findById(id)
+
+        if (!cliente) {
+            throw new Error(`Cliente com o id ${id} não encontrado`)
+        }
+
+        res.json(cliente)
+    } catch (err) {
+        next(err)
+    }
+})
+
+app.put(`${baseUrl}/v1/clientes/:id`, async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const data = req.body
+
+        const cliente = await Cliente.findById(id)
+        if (!cliente) {
+            throw new Error(`Cliente com o id ${id} não encontrado`)
+        }
+
+        const clienteAlterado = await Cliente.findByIdAndUpdate(id, data, { new: true })
+        res.json(clienteAlterado)
+    } catch (err) {
+        next(err)
+    }
+})
+
+app.delete(`${baseUrl}/v1/clientes/:id`, async (req, res, next) => {
+    try {
+        const id = req.params.id
+
+        const query = await Cliente.findByIdAndDelete(id)
+        if(!query) {
+            throw new Error(`Cliente com o id ${id} não encontrado`)
+        }
+        res.json({message: `Cliente com o id ${id} foi excluído`})
+    } catch(err) {
+        next(err)
+    }
+})
+
+
 app.use((err, req, res, next) => {
     console.error(`err: ${err}`)
     res.status(500).json({ errorMessage: err.message })
