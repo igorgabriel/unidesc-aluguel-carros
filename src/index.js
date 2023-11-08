@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+require('custom-env').env()
 const app = express()
 const db = require('./util/db')
 const Cliente = require('./cliente/cliente.model')

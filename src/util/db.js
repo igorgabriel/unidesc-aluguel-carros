@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const mongodbUrl = 'mongodb+srv://igorgma:bf5fvAjuYVBG6dXg@unidesc.wngit1v.mongodb.net/?retryWrites=true&w=majority'
+const mongodbUrl = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_URL}/?retryWrites=true&w=majority`
 
 mongoose.connect(mongodbUrl)
 
