@@ -6,6 +6,7 @@ const db = require('./util/db')
 const Cliente = require('./cliente/cliente.model')
 const clienteRoutes = require('./cliente/cliente.routes')
 const veiculoRoutes = require('./veiculo/veiculo.routes')
+const locacaoRoutes = require('./locacao/locacao.routes')
 const port = 3000
 
 const baseUrl = '/api'
@@ -18,6 +19,7 @@ app.get(baseUrl, (req, res) => {
 
 clienteRoutes(app, baseUrl)
 veiculoRoutes(app, baseUrl)
+locacaoRoutes(app, baseUrl)
 
 app.use((err, req, res, next) => {
     console.error(`err: ${err}`)
